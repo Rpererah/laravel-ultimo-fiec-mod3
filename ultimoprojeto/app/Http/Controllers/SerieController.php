@@ -44,17 +44,19 @@ class SerieController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Serie $series)
     {
-        //
+        return view('atualizar',compact("series"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Serie $series)
     {
-        //
+        $series->fill($request->all());
+        $series->save();
+        return to_route('series.index');
     }
 
     /**
@@ -62,7 +64,8 @@ class SerieController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Serie::destroy($id);
+        return to_route('series.index');
     }
     public function pegaToken(){
         echo csrf_token();
